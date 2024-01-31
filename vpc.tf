@@ -39,3 +39,25 @@ resource "aws_internet_gateway" "myntra-igw" {
     Name = "myntra-internet-gateway"
   }
 }
+# Web Route Table
+resource "aws_route_table" "myntra-web-rt" {
+  vpc_id = aws_vpc.myntra-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.myntra-igw.id
+  }
+
+  tags = {
+    Name = "myntra-web-route-table"
+  }
+}
+
+# Database Route Table
+resource "aws_route_table" "myntra-database-rt" {
+  vpc_id = aws_vpc.myntra-vpc.id
+
+  tags = {
+    Name = "myntra-database-route-table"
+  }
+}
